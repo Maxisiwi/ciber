@@ -21,7 +21,7 @@ Activar ssl en apache
   # a2ensite default-ssl
   # systemctl reload apache2
 
-Crear llave privada para ek certificado digital
+Crear llave privada para el certificado digital
   # openssl genrsa -out *llave_privada.key* 2048
 
 Crear solicitud de certificado
@@ -35,7 +35,7 @@ Crear solicitud de certificado
     admin@duoc.cl
 
 Firmar certificado digital
-  # openssl x509 -req -days 365 -in Sol_Cert.csr -signkey llave_privada.key -out Certificado.pem
+  # openssl x509 -req -days 365 -in *Sol_Cert.csr* -signkey llave_privada.key -out Certificado.pem
 
 Copiar llave y certificado a /etc/ssl
   # mkdir /etc/ssl/duoc

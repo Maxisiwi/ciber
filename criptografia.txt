@@ -1,7 +1,19 @@
+
 Generar una llave privada de 1024 bits:
   # openssl genrsa -out private.key 2048
+
 Cifrar y Descifrar archivo con algoritmo AES:
   # openssl enc -in repaso.txt -out repasoaes.enc -e -aes-256-cbc -k private.key
   # openssl enc -in repasoaes.enc -out aes.txt -d -aes-256-cbc -k private.key
+
 Crear llave pública:
   # openssl rsa -in private.key -pubout -out public.key
+
+Firmar un archivo de texto, utilizando algoritmo SHA1:
+  # openssl dgst -sha1 -sign private.key -out signed.md5 repaso.txt
+
+Verificar archivo firmado (antes y despues):
+  # openssl dgst -sha1 -verify public.key -signature signed.sha1 repaso.txt
+
+Comprobar la integridad de un archivo de texto hash MD5:
+  # openssl dgst -md5 repaso.txt

